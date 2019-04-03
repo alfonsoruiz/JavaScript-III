@@ -11,23 +11,53 @@
     When a new object is being created using a constructor "this"  will be bound to the new instance of the object being created.
 
 * 4. Explicit Binding
-    When call or apply methods are used "this" will be bound to what ever object we specify
+    When use call or apply methods on an object "this" will be bound to whatever object we specify in the argument passed to the apply or call method.
 *   
 * write out a code example of each explanation above
 */
 
 // Principle 1
+function globalBinding() {
+    console.log(this);
+}
 
-// code example for Window Binding
-
+globalBinding();
 // Principle 2
+const cat = {
+    name: 'Rupert',
+    talk: function() {
+        console.log(`Meow, my name is ${this.name}`);
+    }
+}
 
-// code example for Implicit Binding
+cat.talk();
 
 // Principle 3
+function Person(name) {
+    this.name = name;
+}
 
-// code example for New Binding
+Person.prototype.talk = function() {
+    console.log(`I'm ${this.name}`);
+}
+
+const bill = new Person('Bill');
+const ted = new Person('Ted');
+
+bill.talk();
+ted.talk();
 
 // Principle 4
+function Matrix(name) {
+    this.name = name;
+}
 
-// code example for Explicit Binding
+Matrix.prototype.talk = function() {
+    console.log(`I'm ${this.name}`);
+}
+
+const morpheus = new Matrix('Morpheus');
+const keanu = new Matrix('Keanu');
+
+morpheus.talk.call(keanu);
+keanu.talk.call(morpheus);
